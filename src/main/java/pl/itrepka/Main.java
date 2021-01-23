@@ -1,12 +1,8 @@
 package pl.itrepka;
 
-import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 
 import java.io.*;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
@@ -16,11 +12,30 @@ import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) throws IOException, ParseException {
-        ObjectMapper mapper = new ObjectMapper();
-        InputStream is = ClassLoader.getSystemResourceAsStream("statuses.json");
-        InStatusesDto inStatusesDto = mapper.readValue(is, InStatusesDto.class);
-        List<InRecordDto> records = inStatusesDto.getRecords();
+        List<InRecordDto> records = getRecordsListFromJson();
+        List<OutRecordDtoCSV> outRecords = prepareRecordsToSaveInCSVFormat(records);
+        File file = clearFileIfExistsAlready("statuses.csv");
+        writeRecordsToFile(outRecords, file);
+    }
 
+    private static void writeRecordsToFile(List<OutRecordDtoCSV> outRecords, File file) throws IOException {
+        FileWriter output = new FileWriter(file, true);
+        for (OutRecordDtoCSV outRecord : outRecords) {
+            output.write(outRecord.getRecord());
+            output.write('\n');
+        }
+        output.close();
+    }
+
+    private static File clearFileIfExistsAlready(String path) {
+        File file = new File(path);
+        if (file.exists() && file.isFile()) {
+            file.delete();
+        }
+        return file;
+    }
+
+    private static List<OutRecordDtoCSV> prepareRecordsToSaveInCSVFormat(List<InRecordDto> records) throws ParseException {
         InRecordDtoToRecordMapper mapper1 = new InRecordDtoToRecordMapper();
         RecordToOutRecordDtoMapper mapper2 = new RecordToOutRecordDtoMapper();
         String boundDateString = "2017-06-30";
@@ -32,19 +47,14 @@ public class Main {
                 .map(mapper1::map)
                 .map(mapper2::map)
                 .collect(Collectors.toList());
+        return outRecords;
+    }
 
-
-        File file = new File("statuses.csv");
-        if (file.exists() && file.isFile()) {
-            file.delete();
-        }
-
-
-        FileWriter output = new FileWriter(file, true);
-        for (OutRecordDtoCSV outRecord : outRecords) {
-            output.write(outRecord.getRecord());
-            output.write('\n');
-        }
-        output.close();
+    private static List<InRecordDto> getRecordsListFromJson() throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        InputStream is = ClassLoader.getSystemResourceAsStream("statuses.json");
+        InStatusesDto inStatusesDto = mapper.readValue(is, InStatusesDto.class);
+        List<InRecordDto> records = inStatusesDto.getRecords();
+        return records;
     }
 }
