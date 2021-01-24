@@ -21,7 +21,7 @@ public class Main {
     private static void writeRecordsToFile(List<OutRecordDtoCSV> outRecords, File file) throws IOException {
         FileWriter output = new FileWriter(file, true);
         for (OutRecordDtoCSV outRecord : outRecords) {
-            output.write(outRecord.getRecord());
+            output.write(outRecord.getRecordInCSV());
             output.write('\n');
         }
         output.close();

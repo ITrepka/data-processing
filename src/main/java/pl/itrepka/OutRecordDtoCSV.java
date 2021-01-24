@@ -1,13 +1,13 @@
 package pl.itrepka;
 
 public class OutRecordDtoCSV {
-    private String record;
+    private String recordInCSV;
 
-    public OutRecordDtoCSV(String record) {
-        this.record = record;
+    public OutRecordDtoCSV(String recordInCSV) {
+        this.recordInCSV = recordInCSV;
     }
 
-    public String getRecord() {
-        return record;
+    public String getRecordInCSV() {
+        return recordInCSV;
     }
 }

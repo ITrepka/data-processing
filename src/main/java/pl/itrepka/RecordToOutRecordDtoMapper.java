@@ -14,7 +14,7 @@ public class RecordToOutRecordDtoMapper implements Mapper<Record, OutRecordDtoCS
                 .append(",")
                 .append(record.getStatus())
                 .append(",")
-                .append(record.getContactTs().format(DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm:ss")));
+                .append(record.getContactTs().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         return new OutRecordDtoCSV(sb.toString());
     }
 }
