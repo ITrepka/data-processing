@@ -1,5 +1,4 @@
 package pl.itrepka;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.*;
@@ -10,14 +9,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/*Program wczytuję plik statuses.json za pomocą mappera z biblioteki Jackson, przetwarza go na format csv i zapisuje
+do pliku statuses.csv w folderze projektu*/
+
 public class Main {
+
+    /*Metoda główna wywołuje poszczególne metody odpowiadające za działanie programu*/
     public static void main(String[] args) throws IOException, ParseException {
         List<InRecordDto> records = getRecordsListFromJson();
         List<OutRecordDtoCSV> outRecords = prepareRecordsToSaveInCSVFormat(records);
         File file = clearFileIfExistsAlready("statuses.csv");
         writeRecordsToFile(outRecords, file);
     }
-
+    /*Funkcja otrzymuje w parametrze listę obiektów OutRecordDtoCSV i zapisuje ich rekordy do pliku statuses.csv*/
     private static void writeRecordsToFile(List<OutRecordDtoCSV> outRecords, File file) throws IOException {
         FileWriter output = new FileWriter(file, true);
         for (OutRecordDtoCSV outRecord : outRecords) {
@@ -26,7 +30,8 @@ public class Main {
         }
         output.close();
     }
-
+    /*Funkcja, która usuwa plik o danej ścieżce jeśli wcześniej istniał, by zapobiec dopisywaniu resultatów przy
+     wielokrotnym uruchamianiu*/
     private static File clearFileIfExistsAlready(String path) {
         File file = new File(path);
         if (file.exists() && file.isFile()) {
@@ -34,7 +39,9 @@ public class Main {
         }
         return file;
     }
-
+    /*Funkcja, przetwarza dane w sposób określony w zadaniu, tzn filtruje datę, sortuje po kolumnach
+    klient_id oraz po statusie a dodatkowo mapuje w aplikacji obiekty z InRecordDto przez modelowy Record
+    az do OutRecordDtoCsv*/
     private static List<OutRecordDtoCSV> prepareRecordsToSaveInCSVFormat(List<InRecordDto> records) throws ParseException {
         InRecordDtoToRecordMapper mapper1 = new InRecordDtoToRecordMapper();
         RecordToOutRecordDtoMapper mapper2 = new RecordToOutRecordDtoMapper();
@@ -49,7 +56,7 @@ public class Main {
                 .collect(Collectors.toList());
         return outRecords;
     }
-
+    /*Funkcja wczytuje dane z pliku statuses.json w resources i za pomoca objectmappera zamienia je na javowe obiekty*/
     private static List<InRecordDto> getRecordsListFromJson() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         InputStream is = ClassLoader.getSystemResourceAsStream("statuses.json");

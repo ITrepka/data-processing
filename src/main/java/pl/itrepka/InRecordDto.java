@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
+/*Klasa, która jest modelem obiektu z listy obiektow records w pliku statuses.json*/
 public class InRecordDto {
     private Integer kontakt_id;
     private Integer klient_id;

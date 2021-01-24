@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Date;
 
+/*Modelowa klasa rekordow w naszej aplikacji, tzw. POJO*/
 public class Record {
     private Integer contactId;
     private Integer clientId;

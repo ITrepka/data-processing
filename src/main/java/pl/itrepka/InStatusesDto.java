@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
 
+/*klasa, ktorej obiekty bezposrednio wcztujemy z pliku statuses.json, ignoruje pole offset*/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class InStatusesDto {
     private List<InRecordDto> records;
