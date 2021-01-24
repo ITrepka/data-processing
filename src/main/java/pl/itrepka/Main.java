@@ -49,8 +49,8 @@ public class Main {
         Date boundDate = new SimpleDateFormat("yyyy-MM-dd").parse(boundDateString);
         List<OutRecordDtoCSV> outRecords = records.stream()
                 .filter(record -> record.getKontakt_ts().after(boundDate))
-                .sorted((r1, r2) -> r1.getKlient_id() - r2.getKlient_id())
-                .sorted(Comparator.comparing(InRecordDto::getStatus))
+                .sorted((r1, r2) -> r2.getKlient_id() - r1.getKlient_id())
+                .sorted((r1,r2) -> r2.getKontakt_ts().compareTo(r1.getKontakt_ts()))
                 .map(mapper1::map)
                 .map(mapper2::map)
                 .collect(Collectors.toList());
