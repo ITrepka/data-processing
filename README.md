@@ -88,3 +88,9 @@ select @dataGraniczna as data, @sukcesy as sukcesy, @straty as straty, (@poczta 
 Zadanie 4 
 <br>
 Spakowany projekt w archiwum o nazwie: zadanie_4.zip znajduje się w plikach repozytorium, można ściągnąć go też osobno pod adresem https://github.com/ITrepka/data-processing/blob/main/zadanie_4.zip, domyslnie w aplikacji plik statuses.json wczytywany jest z pulpitu, wiec w pierwszym bloczku trzeba zmienić ścieżkę, aby program dzialal prawidlowo.
+<br>
+<br>
+Bardzo proszę o informację zwrotną oraz ocenę mojej pracy, będę wdzięczny za wszelkie wskazówki. W razie pytań jestem do Państwa dyspozycji.<br><br>
+Ireneusz Trepka<br>
+irek.trepka@gmail.com<br>
+730 778 569
