@@ -83,3 +83,8 @@ CALL PoliczIluKlientowZOstatnimStatusemDoWybranejDaty("poczta_glosowa",@poczta, 
 CALL PoliczIluKlientowZOstatnimStatusemDoWybranejDaty("nie_ma_w_domu",@nieobecny, @dataGraniczna);<br>
 <br>
 select @dataGraniczna as data, @sukcesy as sukcesy, @straty as straty, (@poczta + @nieobecny) as do_ponowienia;<br>
+<br>
+<br>
+Zadanie 4 
+<br>
+Spakowany projekt w archiwum o nazwie: zadanie_4.zip znajduje się w plikach repozytorium, można ściągnąć go też osobno pod adresem https://github.com/ITrepka/data-processing/blob/main/zadanie_4.zip, domyslnie w aplikacji plik statuses.json wczytywany jest z pulpitu, wiec w pierwszym bloczku trzeba zmienić ścieżkę, aby program dzialal prawidlowo.
